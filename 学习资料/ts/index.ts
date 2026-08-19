@@ -103,19 +103,6 @@ function run4(name: string = 'yang', age?: number): string {
 console.log(run4('张三', 25))
 console.log(run4())
 
-//重载
-function css(name: string): any
-
-function css(age: number): any
-
-function css(str: any): any {
-    if (typeof str === 'string') {
-        return str
-    } else {
-        return str + '...'
-    }
-}
-
 // 原型链上的属性会被多个实例共享，构造函数不会
 // 静态方法
 // 实例方法
