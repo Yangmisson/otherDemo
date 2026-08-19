@@ -35,6 +35,3 @@ var person = new Person('张三', 14);
 *变量 as 类型
 *<类型>变量
 */
-// tsc 文件名
-// tsc 文件名 -w
-// 新建tsconfig.json文件,可监控目录下所有ts文件
