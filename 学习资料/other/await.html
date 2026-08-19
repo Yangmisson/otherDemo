@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* async function testAsync() {
+            return "hello async";
+        }
+
+        const result = testAsync();
+        console.log(result); */
+        /* function getSomething() {
+            return "something";
+        }
+
+        async function testAsync() {
+            return Promise.resolve("hello async");
+        }
+
+        async function test() {
+            const v1 = await getSomething();
+            const v2 = await testAsync();
+            console.log(v1);
+            console.log(v2);
+        }
+
+        test();
+ */
+
+        /**
+         * 传入参数 n，表示这个函数执行的时间（毫秒）
+         * 执行的结果是 n + 200，这个值将用于下一步骤
+         */
+        /* function takeLongTime(n) {
+            return new Promise(resolve => {
+                setTimeout(() => resolve(n + 200), n);
+            });
+        }
+
+        function step1(n) {
+            console.log(`step1 with ${n}`);
+            return takeLongTime(n);
+        }
+
+        function step2(n) {
+            console.log(`step2 with ${n}`);
+            return takeLongTime(n);
+        }
+
+        function step3(n) {
+            console.log(`step3 with ${n}`);
+            return takeLongTime(n);
+        }
+        function doIt() {
+            console.log(111)
+            console.time("doIt");
+            const time1 = 300;
+            step1(time1)
+                .then(time2 => step2(time2))
+                .then(time3 => step3(time3))
+                .then(result => {
+                    console.log(`result is ${result}`);
+                    console.timeEnd("doIt");
+                });
+        }
+
+        doIt(); */
+
+        function fun2() {
+            console.log(2)
+        }
+
+        function fun3() {
+            console.log(33)
+        }
+        async function fun1() {
+            console.log(1)
+            await fun2()
+            console.log(3)
+            await fun3()
+            console.log(4)
+        }
+        fun1()
+        console.log('end')
+
+        //1 2 end 3 33 4
+    </script>
+</body>
+
+</html>

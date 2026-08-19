@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <ul id="box">
+      <li>测试</li>
+      <li aaaa="222">222</li>
+      <li>333</li>
+    </ul>
+
+    <img src="../images/task_icon4.png" alt="" />
+    <img src="../images/111.png" alt="" />
+    <script>
+      let boxObj = document.getElementById("box");
+      boxObj.onclick = function (e) {
+        console.log(e);
+        console.log(e.target.attributes.aaaa);
+      };
+      // 闭包
+
+      // 1、概念
+      // 函数执行形成一个私有的作用域，保护里面的私有变量不受外界的干扰，这种保护机制称之为“闭包”
+
+      // 市面上的开发者认为的闭包是：形成一个不销毁的私有作用域（私有栈内存）才是闭包
+      // 柯里化函数  惰性函数
+
+      // 闭包具有保护作用：保护私有变量不受外部干扰（多人合作开发项目中，应当尽可能减少全局变量的使用，
+      // 以防止相互之间的冲突-全局变量污染）
+      // (function () {
+
+      // })();
+      // 闭包具有保存作用：形成不销毁的栈内存，把一些值保存下来，方便后面的调取使用
+
+      // 闭包函数：声明在一个函数中的函数，叫做闭包函数。
+
+      // 闭包：内部函数总是可以访问其所在的外部函数中声明的参数和变量，
+      // 即使在其外部函数被返回（寿命终结）了之后。
+
+      // 2、特点
+      // 让外部访问函数内部变量成为可能；
+      // 局部变量会常驻在内存中；
+      // 可以避免使用全局变量，防止全局变量污染；
+      // 会造成内存泄漏（有一块内存空间被长期占用，而不被释放）
+
+      // 3、闭包的创建：­­­
+      // 闭包就是可以创建一个独立的环境，每个闭包里面的环境都是独立的，互不干扰。
+      // 闭包会发生内存泄漏，每次外部函数执行的时候，外部函数的引用地址不同，
+      // 都会重新创建一个新的地址。但凡是当前活动对象中有被内部子集引用的数据，那么
+      // 这个时候，这个数据不删除，保留一根指针给内部活动对象。
+
+      // 闭包内存泄漏为： key = value，key 被删除了 value 常驻内存中; 局部变量闭包
+      // 升级版（中间引用的变量） => 自由变量；
+
+      // 结论：闭包找到的是同一地址中父级函数中对应变量最终的值
+
+      function fn() {
+        var n = 2;
+        return function () {
+          console.log(this);
+          return n;
+        };
+      }
+      var f = fn();
+      var result = f();// window
+      console.log(result);// 2
+      result--;
+      console.log(result);// 1
+      console.log("------------");
+
+      function fun(n, o) {
+        console.log(o);
+        return {
+          fun: function (m) {
+            return fun(m, n);
+          },
+        };
+      }
+      var a = fun(0); // undefined
+      a.fun(1); // 0
+      a.fun(2); // 0
+      a.fun(3); // 0
+      var b = fun(0).fun(1).fun(2).fun(3); // undefined 0 1 2
+      var c = fun(0).fun(1); //
+      c.fun(2); //
+      c.fun(3); //
+    </script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .div1 {
+        filter: grayscale(1);
+      }
+      .img {
+        filter: drop-shadow(0 0 5px #f00);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="div1">
+      <img src="../images/ECstack.png" alt="" />
+    </div>
+    <img class="img" src="../images/task_icon4.png" alt="" />
+  </body>
+  <script>
+    let arr = [5, 6, 9, 7, 9, 8];
+    function sun(arr) {
+      function f(i) {
+        return i >= arr.length ? 0 : arr[i] + f(i + 1);
+      }
+      return f(0);
+    }
+    console.log(sun(arr));
+
+    let a = { n: 2 };
+    let b = a;
+    a.x = a = { n: 3 };
+    console.log(a.x); // undefined
+    console.log(b.x); // {n:3}
+
+    function sleep(delay) {
+      var now = new Date();
+      var exitTime = now.getTime() + delay;
+      while (true) {
+        now = new Date();
+        if (now.getTime() > exitTime) {
+          return;
+        }
+      }
+    }
+    sleep(100);
+    console.log(1111);
+    sleep(100);
+
+    console.log([1, 2, 3].map(parseInt));
+  </script>
+</html>

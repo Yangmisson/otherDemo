@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        //不带var不是私有变量，会向他的上级作用域查找，看是否为上级的变量，
+        //如果不是，会继续向上查找，一直找到window为止（这种机制就是“作用域链”）
+
+
+        // 既能让代码符合es5又能符合es6
+        console.log(a)// undefined
+        console.log(fn)// undefined
+        console.log(fn2)// fn2
+        if (1 === 1) {
+            console.log(a)// undefined
+            console.log(fn)// fn
+            var a = 1;
+            function fn(){
+                console.log('fn');
+            }
+        }
+
+        function fn2(){
+
+        }
+        console.log(a)// 1
+        console.log(fn)// fn
+
+    </script>
+</body>
+
+</html>

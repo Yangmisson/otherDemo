@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+    <script>
+        // var a = 10;
+        // let a = 10;
+        function a() {
+            this.name = 111;
+        }
+        var a1 = new a();
+
+        console.log(typeof b)// "undefined"
+        console.log(a instanceof Function)//true
+        console.log(a.constructor == Function)//true
+        console.log('__proto__', a.__proto__.__proto__.__proto__)//null
+        console.log(a.__proto__ == Function.prototype)//true
+
+        var numbers = [4, 9, 16, 25];
+        // map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。
+        // map() 不会改变原始数组。
+        var newNumbers = numbers.map((item, index, arr) => {
+            console.log(this)
+            return item * 2
+        })
+        console.log(numbers, newNumbers)
+
+        // includes()：返回布尔值，表示是否找到了参数字符串。
+        // startsWith()：返回布尔值，表示参数字符串是否在原字符串的头部。
+        // endsWith()：返回布尔值，表示参数字符串是否在原字符串的尾部。
+        let fun = () => {
+            console.log('fun')
+        }
+        console.log(fun.toString())
+
+        console.log(new Array(3).fill(23))
+
+        //箭头函数没protoType属性
+
+
+        let arr = [52, 65, 69, 45, 45, 78];
+        //map 映射
+        //reduce n => 1
+        //filter 过滤
+        //forEach 遍历
+        let mapArr = arr.map(item => item > 60 ? '及格' : '不及格')
+        console.log(mapArr)
+        console.log('------------------')
+        let result = arr.reduce((tmp, item, index, arrReduce) => tmp + item)
+        console.log('reduce---',result)
+
+        let filterArr = arr.filter(item => item > 60)
+        console.log(filterArr)
+
+        let forEachResult = 0;
+        try {
+            arr.forEach((item, index) => {
+                forEachResult += item;
+                if (index == 2) {
+                    return false//终止本轮循环
+                }
+                if (index == 4) {
+                    throw new Error('结束');
+                }
+                console.log(index)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        console.log(forEachResult)
+
+        var a = 12, b = 13, c = 14;
+        function fn(a){
+            console.log(a,b,c)// 12 undefined 14
+            var b = c = a = 20;
+            console.log(a,b,c)// 20 20 20
+        }
+        fn(a);
+        console.log(a,b,c);// 12 13 20
+
+        var arr2 = [12,45];
+        function arrFn(arr2){
+            console.log(arr2);// [12, 45]
+            arr2[0] = 100;
+            arr2 = [100];
+            arr2[0] = 0;
+            console.log(arr2)// [0]
+        }
+        arrFn(arr2)
+        console.log(arr2)//[100, 45]
+    </script>
+</body>
+
+</html>

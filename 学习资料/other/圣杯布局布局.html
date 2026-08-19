@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body.big-event-gray .water-container {
+            filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -ms-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            filter: grayscale(100%);
+            filter: gray;
+        }
+        body.big-event-gray *{
+            color: #222 !important;
+        }
+
+        body.big-event-gray .s-xmancard-news_new a:hover {
+            text-decoration: underline;
+            color: #222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .clearfix {
+            position: relative;
+        }
+
+        .clearfix::after {
+            content: "";
+            height: 0;
+            clear: both;
+        }
+
+        .col {
+            float: left;
+            width: 200px;
+            min-height: 400px;
+            background-color: blanchedalmond;
+        }
+
+        .center {
+            float: left;
+            width: 100%;
+            min-height: 200px;
+            padding-left: 200px;
+            padding-right: 200px;
+            background-color: pink;
+        }
+
+        .left {
+            margin-left: -100%;
+        }
+
+        .right {
+            margin-left: -200px;
+        }
+    </style>
+</head>
+
+<body class="big-event-gray">
+    <div class="box clearfix water-container">
+        <div class="center">
+            <img src="../images/ECstack.png" alt="">
+            中合同任何人体会发给你发你还能让他中合同任何人体会发给你发你还能让他中合同任何人体会发给你发你还能让他中合同任何人体会发给你发你还能让他中合同任何人体会发给你发你还能让他中合同任何人体会发给你发你还能让他</div>
+        <div class="left col">左</div>
+        <div class="right col">右</div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <div id="div1"></div>
+    <div id="div2"></div>
+</body>
+<script>
+    let person = {}
+    Object.defineProperty(person, 'name', {
+        // writable:true,// 是否可以改变
+        value: 'jack'
+    })
+    person.name = 'rose'
+    console.log(person)
+
+    var oDiv1 = document.getElementById('div1'),
+        oDiv2 = document.getElementById('div2');
+
+    var fragMent = document.createDocumentFragment();
+    var oA = document.createElement('a');
+    var oSpan = document.createElement('span');
+    oA.innerHTML = '我是一个a链接';
+    oSpan.innerHTML = '我是一个span';
+    fragMent.appendChild(oA)
+    fragMent.appendChild(oSpan)
+    oDiv1.appendChild(fragMent)
+
+
+    console.log(fragMent)
+
+</script>
+
+</html>

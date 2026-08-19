@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        
+        // parseInt()先用toString()转换为字符串，再转换为数字
+        // isNaN()先用Number()转换为数字，再判断
+
+        /* 
+        * Number()把其他类型转为数字
+        * 字符串：一旦出现非数字字，则为NaN；空字符串转为0
+        * true=>1 false=>0
+        * Symbol类型不能转化为数字，会报错
+        * null=>0  undefined=>NaN
+        * 对象转化为数字：先转化为字符串，再把字符串转为数字
+        *   +数组对象有可能是数字
+        *   +其余对象为NaN
+        * 函数转换为数字都是NaN
+        * 
+        */
+
+        //==进行比较的时候，如果左右数据类型不一样，则先转换为相同的数据类型，然后再进行比较
+        //1.{}=={}，两个对象进行比较，比较的是堆内存中的地址
+        //2.null==undefined true,null===undefined  false
+        //3.NaN == NaN fasle，NaN和谁都不相等
+        //4.[12]=='12',对象和字符串比较，是把对象toString()转换为字符串后再进行比较
+        //5.剩余所有情况在进行比较的时候，都是转换为数字（前提：数据类型不一样）
+        //   对象转数字：先转换为字符串，再转换成数字(Number)
+        //   字符串转数字：只要出现一个数字就是NaN
+        //   布尔转数字
+        //   
+        //   undefined=>NaN
+        //   []=>0
+
+        //方法一
+        var a = {
+            val:1,
+            toString:function(){
+                return this.val++
+            }
+        }
+        if (a == 1 && a == 2 && a == 3) {
+            console.log(1)
+        }
+        
+        //方法二
+        var b = [1,2,3];
+        b.toString = b.shift;
+        if (b == 1 && b == 2 && b == 3) {
+            console.log(2)
+        }
+
+        //方法三
+        var i = 1;
+        Object.defineProperty(window,'c',{
+            get(){
+                return i++;
+            }
+        })
+        if (c == 1 && c == 2 && c == 3) {
+            console.log(3)
+        }
+    </script>
+</body>
+</html>

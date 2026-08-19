@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>深度拷贝</title>
+  </head>
+
+  <body></body>
+  <script>
+    /*
+     * js检测数据类型的四种方法：
+     * typeof [value]
+     * [example] instanceof [class]
+     * [example].constructor===[class]
+     * Object.prototype.toString.call([value])
+     */
+    // typeof null的结果是"object"(null不是空对象，是空对象指针，是基本类型值
+    // 它是浏览器的bug，所有的值在存储中都已二进制编码存储，浏览器把前三位是000的当做对象，
+    // null的前三位就是000，所有被识别为对象)
+
+    // 浅拷贝方法
+    // var a = { name: 'hello' };
+    // var b = Object.assign({}, a);
+    // var b = { …a}
+
+    function shallowClone(source) {
+      let target = {};
+      for (let i in source) {
+        if (source.hasOwnProperty(i)) {
+          target[i] = source[i];
+        }
+      }
+      return target;
+    }
+    // 深拷贝方法
+    /*
+     *var b = JSON.parse(JSON.stringify(a))
+     *弊端  值为 正则、function、Date不可取=》{} 、{} 、 日期字符串
+     */
+
+    function getType(obj) {
+      if (Object.prototype.toString.call(obj) == "[object Object]") {
+        return "Object";
+      } else if (Object.prototype.toString.call(obj) == "[object Array]") {
+        return "Array";
+      } else {
+        return "normal";
+      }
+    }
+
+    function deepCopy(obj) {
+      if (getType(obj) == "normal") {
+        return obj;
+      } else {
+        var newObj = getType(obj) == "Object" ? {} : [];
+        for (var key in obj) {
+          if (obj.hasOwnProperty(key)) {
+            newObj[key] = deepCopy(obj[key]);
+          }
+        }
+        return newObj;
+      }
+    }
+
+    function deepCopy2(obj) {
+      if (obj instanceof RegExp) {
+        return new RegExp(obj);
+      }
+      if (obj instanceof Date) {
+        return new Date(obj);
+      }
+      if (typeof obj === "function") {
+        return new Function("return " + obj.toString())();
+      }
+      if (obj === null) {
+        return null;
+      }
+      if (typeof obj !== "object") {
+        return obj;
+      }
+
+      let newObj = new obj.constructor();
+      for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          newObj[key] = deepCopy2(obj[key]);
+        }
+      }
+      return newObj;
+    }
+
+    var obj = {
+      a: 1,
+      b: function () {
+        this.a++;
+        console.log(1);
+      },
+      c: [1, 2, 3],
+      d: new Date(),
+      e: /`(${k})`/,
+      f: undefined,
+    };
+    console.log(obj);
+    console.log(111, JSON.parse(JSON.stringify(obj)));
+    console.log(deepCopy2(obj));
+    console.log(deepCopy2(obj).b === obj.b);
+    console.log(deepCopy2(obj).b);
+    console.log(obj.b);
+    console.log(deepCopy2(obj).c === obj.c);
+    console.log(deepCopy2(obj).d === obj.d);
+    console.log(deepCopy2(obj).e === obj.e);
+  </script>
+</html>

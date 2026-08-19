@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        /* 
+          基本类型-String、Number、Boolean、Symbol、Undefined、Null
+          引用类型-Object、Function
+          基本类型：直接操作值
+          引用类型：按引用  函数堆内存中存的是代码字符串
+  
+          栈内存（可以理解为作用域）作用：
+              提供一个js代码自上而下的执行环境
+              由于基本数据类型值比较简单，它们都是直接在栈内存开辟一个位置，把值直接存进去
+              当栈内存被销毁，存储的那些基本值也跟着被销毁了
+  
+          堆内存作用：引用值对应的空间
+              存储引用类型的值（对象：键值对  函数：代码字符串）
+              当前堆内存销毁，这个引用值彻底没了
+              堆内存的释放：当堆内存中没有任何的变量或其他东西占用，浏览器会在空闲的时候，
+              自主的进行内存回收，把所有不被占用的堆内存销毁掉
+  
+              xxx = null
+         */
+
+        /* 
+         *数据类型检测
+         *1.typeof  
+             直接在计算机底层基于数据类型的值(二进制)进行检测
+             typeof null // 'object' 对象存储在计算机中，都是以000开始的二进制存储，null也是，所以检测结果是'object'
+         *2.instanceof 检测当前实例是否属于这个类
+             不能检测基本类型
+             由于可以修改原型的指向，所以检测出来的结果是不准确的
+         *3.constructor
+            能检测基本类型
+            constructor也可随意修改，所以检测不准确
+         *4.Object.prototype.toString.call
+            标准检测数据类型的方法
+            Object.prototype.toString()不是转换为字符串，是返回当前实例所属类的信息
+         */
+        typeof 12 // 'number'
+        typeof NaN // 'number'
+        typeof 'NaN' // 'string'
+        typeof true // 'boolean'
+        typeof undefined // 'undefined'
+        typeof null // 'object'
+        typeof {} // 'object'
+        typeof [] // 'object'
+        typeof /^$/ // 'object'
+        typeof function () { } // 'function'
+
+
+        Array.prototype.forEach = function (callBack, context) {
+            let self = this
+            context = context == null ? window : context
+            for (let i = 0; i < self.length; i++) {
+                typeof callBack === 'function' ? callBack.call(context, self[i], i) : null
+            }
+        }
+        let arr = ['张三', '李四', '王五']
+        arr.forEach(function (item, i) {
+            console.log(item, i)
+            console.log(this)
+        }, [1, 2, 3])
+
+
+        let obj = {
+            0: 100,
+            1: 200,
+            2: 300,
+            length: 3
+        }
+        obj[Symbol.iterator] = Array.prototype[Symbol.iterator]
+        for (val of obj) {
+            console.log(val)
+        }
+
+
+        // this是一个指针，指向调用函数的对象
+        Function.prototype.call = function (context, ...params) {
+            let self = this;// fn
+            let key = Symbol()
+            context == null ? context = window : null
+            !/^(object|function)$/i.test(typeof context) ? context = Object(context) : null
+            context[key] = self
+            let result = context[key](...params)
+            delete context[key]
+            return result
+        }
+        Function.prototype.bind = function () {
+            let self = this;// fn
+            return function (...args) {
+                self.apply(context, params.concat(args))
+            }
+        }
+        let obj2 = {
+            name: 'Yang'
+        }
+        function fn(x, y) {
+            console.log(this, x, y)
+        }
+        fn.call(obj2, 10, 20)
+    </script>
+
+</body>
+
+</html>

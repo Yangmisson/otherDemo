@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+  </head>
+  <body>
+    <script>
+      // 生成器是一个特殊的函数
+      // 异步编程  纯回调函数
+      // 函数代码的分隔符 yield
+      function* gen() {
+        console.log(1);
+        yield "11"; // 每次next返回的value值
+        console.log(2);
+        yield "22";
+        console.log(3);
+        yield "33";
+      }
+      let fn = gen();
+      console.log(fn.next()); // {value: '11', done: false}
+      console.log(fn.next("参数是第1个yeild语句的返回结果")); // {value: '22', done: false}
+      console.log(fn.next("参数是第2个yeild语句的返回结果")); // {value: '33', done: false}
+      console.log(fn.next("参数是第3个yeild语句的返回结果")); // {value: undefined, done: true}
+    </script>
+  </body>
+</html>

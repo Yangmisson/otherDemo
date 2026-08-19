@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- 
+    script标签有两个属性async/defer，这两个属性是做什么的？
+    这两个属性使得script都不会阻塞DOM的渲染
+
+    如果有多个设置了defer的script标签存在，则会按照顺序执行所有的script；
+    defer脚本会在文档渲染完毕后，DOMContentLoaded事件调用前执行。
+
+    async的执行，并不会按着script在页面中的顺序来执行，而是谁先加载完谁执行。
+
+
+    async：异步，外部JS加载完成后，浏览器空闲时，Load事件触发前执行，乱序；
+    defer：异步，在JS加载完成后，整个文档解析完成后，触发 DOMContentLoaded 
+    事件触发前执行，顺序；
+ -->
+<body>
+    <script>
+        var foo = 'get-element-by-id';
+        foo.substr(0,1,'aaa');
+        var arr = foo.split('-');
+        for (var i = 1; i < arr.length; i++) {
+            arr[i] = arr[i].charAt(0).toUpperCase()+arr[i].substr(1, arr[i].length-1);
+        }
+        console.log(arr.join(''));
+
+
+        const list = [1,2,3]
+        const square = num=>{
+            return new Promise(resolve=>{
+                setTimeout(()=>{
+                    resolve(num*num)
+                },1000)
+            })
+        }
+        list.forEach(async x=>{
+            const res = await square(x)
+            console.log(res)
+        })
+    </script>
+</body>
+
+</html>

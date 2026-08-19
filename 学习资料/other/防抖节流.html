@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        .container {
+            display: flex;
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+            border: 1px solid rebeccapurple;
+        }
+
+        .box {
+            margin: auto;
+            width: 50px;
+            height: 50px;
+            background-color: rosybrown;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <input id="input" placeholder="请输入" type="text">
+        <div class="box"></div>
+    </div>
+    <div>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+        <p>反反复复付付付付</p>
+    </div>
+    <script>
+        /* 节流：一个函数执行一次后，只有大于设定的设定周期后才会执行第二次 */
+        /**
+         * 节流函数
+         * @param fn 要被节流的函数
+         * @param delay 规定的时间
+         */
+
+        function throttle(fn, delay) {
+            var lastTime = 0;
+            return function (...args) {
+                var nowTime = new Date().getTime();
+                if (nowTime > lastTime + delay) {
+                    fn.apply(this, args);
+                    lastTime = nowTime;
+                }
+            }
+        }
+        window.onscroll = throttle(function (e) {
+            console.log(e)
+            console.log('----' + new Date().getTime())
+        }, 200)
+
+
+        /* 防抖：一个需要频繁触发的函数，只让最后一次生效，前面的不生效*/
+        function debounce(fn, delay) {
+            var timer = null;
+            return function (...args) {
+                if (timer) {
+                    clearTimeout(timer);
+                }
+                timer = setTimeout(() => {
+                    fn.apply(this, args)
+                }, delay)
+            }
+        }
+        var oInput = document.getElementById('input')
+        oInput.oninput = debounce((e) => {
+            console.log(e.target.value)
+            // oInput.value = e.target.value
+        }, 500)
+
+        // oInput.addEventListener('input', debounce((e) => {
+        //     console.log(e.target.value)
+        //     // oInput.value = e.target.value
+        // }, 500))
+    </script>
+</body>
+
+</html>

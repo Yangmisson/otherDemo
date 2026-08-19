@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<script>
+    class Person {
+        constructor(name,age,sex){// 实例化的时候执行的方法
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+        }
+        showName(){
+            console.log(this.name)
+        }
+        showAge(){
+            console.log(this.age)
+        }
+        get getSex(){
+            return this.sex
+        }
+        set setSex(value){
+            this.sex = value
+        }
+    }
+    let person = new Person('Yang',100,'男');
+    person.showName();
+    person.showAge();
+    console.log('---',person.setSex = '1')
+    console.log('---',person.getSex)
+
+
+    class worker extends Person{
+        constructor(name,age,work){
+            super(name,age);
+            this.work = work;
+            this.showWork(1);
+        }
+        showWork(data){
+            console.log(this.work)
+            console.log(data)
+        }
+    }
+
+    let work = new worker('Yang2',99,'web');
+    console.log(work)
+    work.showName();
+    work.showAge();
+    work.showWork(2);
+
+    let a = {age:12}
+    let b = a
+    a = {age:13}
+    function fn2(obj){
+        obj = {age:15}
+    }
+    fn2(a)
+    console.log(a.age)
+
+</script>
+</body>
+
+</html>

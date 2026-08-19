@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>图片懒加载</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        margin-top: 600px;
+      }
+      .img-item {
+        width: 612px;
+        height: 238px;
+        overflow: hidden;
+        margin: 10px auto;
+        background-color: #ccc;
+      }
+      .img {
+        display: block;
+        width: 200px;
+        height: auto;
+      }
+      .animate {
+        animation: opacityAnimate 1s ease;
+      }
+      @keyframes opacityAnimate {
+        0% {
+          transform: translate3d(300%, 100px, 0) rotateZ(1080deg);
+          width: 100px;
+        }
+
+        100% {
+          transform: translateX(0) rotateZ(0);
+          width: 200px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container"></div>
+  </body>
+  <script src="../js/jquery-2.2.1.min.js"></script>
+  <script>
+    $(function () {
+      var imgArr = [
+          "https://img0.baidu.com/it/u=2438360880,1979762032&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
+          "https://img1.baidu.com/it/u=3758961705,4009040989&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800",
+          "https://img0.baidu.com/it/u=784052429,3591557900&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500",
+          "https://img1.baidu.com/it/u=2005056479,139681251&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500",
+          "https://img0.baidu.com/it/u=1512883555,827303141&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
+          "https://img0.baidu.com/it/u=2438360880,1979762032&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
+          "https://img1.baidu.com/it/u=3758961705,4009040989&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800",
+          "https://img0.baidu.com/it/u=784052429,3591557900&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500",
+          "https://img1.baidu.com/it/u=2005056479,139681251&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500",
+          "https://img0.baidu.com/it/u=1512883555,827303141&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
+        ],
+        strHtml = "",
+        imgArrLength = imgArr.length,
+        $container = $(".container");
+      for (var i = 0; i < imgArrLength; i++) {
+        strHtml += `<div class="img-item"><img class="img" alt="" datasrc="${imgArr[i]}"/></div>`;
+      }
+      $container.html(strHtml);
+      // $imgItems = $container.children(".img-item");
+      $imgItems = document.querySelectorAll(".img");
+
+      const observer = new IntersectionObserver(
+        function (entries, observer) {
+          // entries：一个数组，包含被观察元素的所有交叉状态。
+          // observer：当前的 IntersectionObserver 实例。
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.className = "img animate";
+              // 设置真实图片地址
+              img.src = img.getAttribute("datasrc");
+              // 停止观察
+              observer.unobserve(img);
+            }
+          });
+        },
+        { rootMargin: "-260px" }
+      );
+      $imgItems.forEach((imgObj) => {
+        observer.observe(imgObj);
+      });
+    });
+  </script>
+</html>

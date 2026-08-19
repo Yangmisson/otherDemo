@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .box {
+        display: flex;
+        padding: 20px;
+      }
+      .left {
+        flex: 2;
+        height: 142px;
+        background: url(https://frontimgcdn.hkbf.com.cn/yAgencyMimi/report/report_bg1.png) no-repeat;
+        background-size: 100% 100%;
+        border-radius: 12px;
+      }
+      .right {
+        flex: 2;
+        border-radius: 12px;
+      }
+      .right-item1 {
+        height: 65px;
+        background: url(https://frontimgcdn.hkbf.com.cn/yAgencyMimi/report/report_bg2.png) no-repeat;
+        background-size: 100% 100%;
+      }
+      .right-item2 {
+        height: 65px;
+        margin-top: 10px;
+        background: url(https://frontimgcdn.hkbf.com.cn/yAgencyMimi/report/report_bg3.png) no-repeat;
+        background-size: 100% 100%;
+        margin-right: -20px;
+        position: relative;
+        left: -20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <div class="left"></div>
+      <div class="right">
+        <div class="right-item1"></div>
+        <div class="right-item2"></div>
+      </div>
+    </div>
+    <script>
+      class MyPromise {
+        static PENDING = "pending";
+        static FULFILLED = "fulfilled";
+        static REJECTED = "rejected";
+
+        constructor(executor) {
+          this.status = MyPromise.PENDING;
+          this.value = null;
+          this.callbacks = [];
+
+          try {
+            executor(this.resolve, this.reject);
+          } catch (error) {
+            this.reject(error);
+          }
+        }
+
+        resolve = (value) => {
+          if (this.status === MyPromise.PENDING) {
+            this.status = MyPromise.FULFILLED;
+            this.value = value;
+            setTimeout(() => {
+              this.callbacks.map((callback) => {
+                callback.onFulfilled(value);
+              });
+            });
+          }
+        };
+        reject = (error) => {
+          if (this.status === MyPromise.PENDING) {
+            this.status = MyPromise.REJECTED;
+            this.value = error;
+            setTimeout(() => {
+              this.callbacks.map((callback) => {
+                callback.onRejected(error);
+              });
+            });
+          }
+        };
+        then(onFulfilled, onRejected) {
+          if (typeof onFulfilled !== "function") {
+            onFulfilled = () => this.value;
+          }
+          if (typeof onRejected !== "function") {
+            onRejected = () => this.value;
+          }
+          return new MyPromise((resolve, reject) => {
+            if (this.status === MyPromise.PENDING) {
+              this.callbacks.push({
+                onFulfilled: (v) => {
+                  try {
+                    let result = onFulfilled(v);
+                    resolve(result);
+                  } catch (e) {
+                    reject(e);
+                  }
+                },
+                onRejected: (v) => {
+                  try {
+                    let result = onRejected(v);
+                    resolve(result);
+                  } catch (e) {
+                    reject(e);
+                  }
+                },
+              });
+            }
+            if (this.status === MyPromise.FULFILLED) {
+              setTimeout(() => {
+                try {
+                  let result = (this.value = onFulfilled(this.value));
+                  resolve(result);
+                } catch (error) {
+                  reject(error);
+                }
+              });
+            }
+            if (this.status === MyPromise.REJECTED) {
+              setTimeout(() => {
+                try {
+                  let result = onRejected(this.value);
+                  resolve(result);
+                } catch (error) {
+                  reject(error);
+                }
+              });
+            }
+          });
+        }
+      }
+    </script>
+    <script>
+      let p = new MyPromise((resolve, reject) => {
+        resolve("123");
+        // reject('456')
+
+        // setTimeout(() => {
+        // resolve('123')
+        // reject('456')
+        // console.log('yyy')
+        // })
+      })
+        .then(
+          (data) => {
+            // console.log(aaa)
+            console.log("then onFulfilled", data);
+            return "then111";
+          },
+          (error) => {
+            console.log(bbb);
+            console.log("then onRejected", error);
+            return error;
+          }
+        )
+        .then(
+          (data) => {
+            // console.log(ggg)
+            console.log("第二个then", data);
+          },
+          (err) => {
+            console.log("then2 err", err);
+          }
+        );
+
+      console.log("end");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        Array.prototype.reverseArr = function () {
+            let result = [];
+            console.log(this)
+            for (var i = this.length - 1; i >= 0; i--) {
+                result.push(this[i])
+            }
+            return result;
+        }
+
+        var arr = [55, 6, 8, 45, 63, 12];
+        console.log(arr.reverseArr());
+
+
+    </script>
+</body>
+
+</html>

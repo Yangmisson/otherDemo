@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // let p1 = new Promise((resolve, reject) => {
+        //     let xhr = new XMLHttpRequest();
+        //     xhr.open('get', 'http://eipsmysql.hkbf.com.cn/api/user/get?uid=BF1000039');
+        //     // xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+        //     xhr.onreadystatechange = function () {
+        //         if(xhr.readyState == 4 ){
+        //             console.log(xhr)
+        //             if(xhr.status == 200){
+        //                 resolve(JSON.parse(xhr.responseText));
+        //             }else{
+        //                 reject(JSON.parse(xhr.responseText));
+        //             }
+        //         }
+        //     }
+        //     xhr.send();
+        // })
+        let p1 = new Promise((resolve, reject) => {
+            let xhr = new XMLHttpRequest();
+            xhr.open('post', 'https://uatminivisit.hkbf.com.cn/api/ds/ygbTaskInfo/v1/list');
+            xhr.setRequestHeader("Content-Type","application/json;charset=UTF-8")
+            xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCRjEwMjQ0MTYiLCJleHAiOjE2OTEwMjgwODksImlhdCI6MTY5MDk0MTY4OX0.NC0EfxlcH_Nzmv-bMYDWp5AO4FcOfu6chsu4uwjgpyeB0LJQ4ErRpEV4giNkVPg8_nd2hOA0jluAvzkK2cDTzQ")
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    console.log(xhr)
+                    if (xhr.status == 200) {
+                        resolve(JSON.parse(xhr.responseText));
+                    } else {
+                        reject(JSON.parse(xhr.responseText));
+                    }
+                }
+            }
+            xhr.send(JSON.stringify({ "pageBean": { "page": 1, "pageSize": 10, "showTotal": true }, "querys": [{ "operation": "EQUAL", "property": "company", "value": "0102" }] }));
+        })
+
+        p1.then((data) => {
+            console.log('data', data)
+        }).catch((error) => {
+            console.log(error)
+        })
+
+
+    </script>
+</body>
+
+</html>

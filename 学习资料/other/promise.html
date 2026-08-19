@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+
+  <body>
+    <script>
+    //   function getUserInfo(id) {
+    //     return new Promise(function (resolve, reject) {
+    //       var xhr = new XMLHttpRequest();
+    //       xhr.open(
+    //         "get",
+    //         "http://eipsmysql.hkbf.com.cn/api/user/get?uid=" + id,
+    //       );
+    //       xhr.send();
+    //       a = 1;
+    //       xhr.onreadystatechange = function () {
+    //         if (xhr.readyState == 4) {
+    //           if (xhr.status == 200) {
+    //             resolve(xhr.response);
+    //             console.log("resolve");
+    //           } else {
+    //             reject(xhr.response);
+    //             console.log("reject");
+    //           }
+    //         }
+    //       };
+    //     });
+    //   }
+    //   var result = getUserInfo("BF1000039")
+    //     .then(function (data) {
+    //       console.log("BF1000039", data);
+    //       return getUserInfo("BF1000082");
+    //     })
+    //     .then((data) => {
+    //       console.log("BF1000082", data);
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    //   console.log(result);
+
+      new Promise((resolve, reject) => {
+        console.log(2211);
+        setTimeout(() => {
+          console.log(11);
+          resolve(222);
+        }, 1000);
+      })
+        .then((value) => {
+          console.log(value, 333);
+          setTimeout(() => {
+            console.log("---");
+            return Promise.resolve(444);
+          });
+        })
+        .then((value) => {
+          console.log(value, 555);
+        });
+      console.log("end");
+    </script>
+  </body>
+</html>

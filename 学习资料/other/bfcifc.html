@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{padding: 0;margin: 0;}
+        .bfc{
+            overflow: hidden;
+            border: 1px solid red;
+        }
+        body{ padding: 10px;}
+        .float{/* float: left; */background-color:bisque;}
+        .bfc p{margin: 10px;/* overflow: hidden; */float: right;}
+
+        .ifc{
+            border: 1px solid transparent;
+            margin-top: 15px;
+        }
+        .ifc-p{/* text-align: center; */display: flex;align-items: center;line-height: 1;}
+        .ifc-p span{margin: 10px;line-height: 1;}
+        .ifc-p .span{float: left;}
+        /**
+         *font-size是指那个模具的高度，也就是活体印刷块的高度,所以有的字体是可以比font-size大的 
+        */
+        .tag{
+            display: inline-flex;
+            align-items: center;
+            line-height: normal;
+            color: #fff;
+            font-size: 13px;
+            background-color: violet;
+            padding: 1px 3px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bfc">
+        <p class="float">内部的Box会在垂直方向，一个接一个地放置</p>
+        <p>Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠。</p>
+        <p>每个盒子（块盒与行盒）的margin box的左边，与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。</p>
+        <p>
+            <p>BFC的区域不会与float box重叠。</p>
+        </p>
+        <p>BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。</p>
+        <p>计算BFC的高度时，浮动元素也参与计算</p>
+    </div>
+
+    <div class="ifc">
+        <p class="ifc-p" style="background-color: #f6f6f6;">
+            <span style="font-size: 26px;">张三</span>
+            <span>李四</span>
+            <span>王五</span>
+        </p>
+        <p class="ifc-p">
+            <span style="font-size: 26px;">张三</span>
+            <span style="font-size: 26px;">张三</span>
+            <span style="font-size: 26px;">张三</span>
+            <span style="font-size: 26px;">张三</span>
+            <span style="font-size: 26px;">张三</span>
+            <span style="font-size: 26px;">张三</span>
+            <span style="font-size: 26px;">张三</span>
+            <span class="span">李四</span>
+            <span>王五</span>
+        </p>
+        <p>
+            <span>ifc中的元素会在一行中从左到右排列。</span>
+            <span>在一行上的所有元素会在该区域形成一个行框。</span>
+            <span>行宽的高度为包含框的高度，高度为行框中最高元素的高度。</span>
+            <span>浮动的元素不会在行框中，并且浮动元素会压缩行框的宽度。</span>
+            <span>行框的宽度容纳不下子元素时，子元素会换到下一行显示，并且会产生新的行框。</span>
+            <span><span class="tag">资讯</span>行框的元素内遵循text-align和vertical-align。</span>
+        </p>
+    </div>
+</body>
+</html>

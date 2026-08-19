@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      ul li {
+        list-style: none;
+        padding: 10px 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <ul>
+      <li>
+        <p>1、call和apply的区别是什么？哪个性能更好？</p>
+        <p>call性能要比apply稍微好点（尤其是参数超过三个时）</p>
+      </li>
+    </ul>
+  </body>
+  <script>
+    // call与apply会立即执行
+    /*  let arr = [10, 20, 30],
+         obj = { a: 100 };
+     function fun(...arg) {
+         console.log(this)
+         console.log(arg)
+         let result = 0;
+         arg.forEach((item) => {
+             result += item * this.a;
+         })
+         console.log(result)
+     }
+     fun.call(obj, ...arr);
+     fun.apply(obj, arr);
+  */
+
+    /*
+     * 实现(5).add(3).minus(2)，使其输出结果为6
+     */
+    /*  function add(n) {
+         return (this + n)
+     }
+     function minus(n) {
+         return this - n
+     } */
+    /*     Number.prototype.add = add;
+        Number.prototype.minus = minus; */
+    /*  ['add', 'minus'].forEach((item) => {
+         Number.prototype[item] = eval(item);
+     })
+     console.log((5).add(3).minus(2))
+  */
+
+    function currying(add) {
+      return function (...args) {
+        if (args.length == 0) {
+          return add(...args);
+        }
+        return currying(add.bind(null, ...args));
+      };
+    }
+
+    function add(...args) {
+      return args.reduce((total, num) => {
+        return total + num;
+      });
+    }
+
+    add = currying(add);
+    console.log(add(1)()); //1
+    console.log(add(1)(2, 3)()); //6
+    console.log(add(1)(2, 2, 2, 9, 0, 78, 89)(7, 8, 5)(110, 88)(99)()); //500
+
+    const fn = function (a, b) {
+      const obj = {
+        func: (a, b) => {
+          console.log(this, arguments, obj.func.prototype, a, b);
+        },
+      };
+      return obj;
+    };
+    const obj = fn(1, 2);
+    obj.func(3); //Window,[1,2],undefined,3,2
+    // new obj.func(4)//报错 obj.fun is not a constructor
+
+    const Parent = function () {
+      this.a = 2;
+    };
+    const o1 = new Parent();
+    const o2 = Object.create(parent);
+    const o3 = Object.create(new Parent());
+    console.log(o1.a); //2
+    console.log(o2.a); //undefined
+    console.log(o3.a); //2
+
+    class Base {}
+    class Subclass extends Base {}
+
+    var a = 0;
+    if (true) {
+      a = 1;
+      console.log(a);
+      function a() {}
+      console.log(a);
+      a = 2;
+      console.log(a);
+    }
+    console.log(a);
+
+    console.log("-----------------");
+
+    var aa = 1;
+    function bb() {
+      aa = 10;
+      return;
+      function aa() {
+        console.log(aa);
+      }
+    }
+    bb();
+    console.log(aa);
+    console.log("-----------------");
+  </script>
+</html>

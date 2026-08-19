@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" placeholder="数值" id="number" />
+    <button id="btn">计算</button>
+    <script>
+      let btn = document.getElementById("btn");
+      let number = document.getElementById("number");
+      let worker = new Worker("worker.js");
+      btn.onclick = function () {
+        worker.postMessage(number.value);
+        worker.addEventListener("message", function (data) {
+          console.log(data.data);
+        });
+      };
+    </script>
+  </body>
+</html>

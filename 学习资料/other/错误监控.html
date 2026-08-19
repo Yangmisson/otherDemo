@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        错误监控
+            1.即时运行错误
+                try...catch
+                window.onerror
+            2.资源加载错误
+                object.onerror
+                performance.getEntries()
+                Error事件捕获
+     -->
+    <ul>
+        <li><img src="https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg"
+                alt=""></li>
+        <li><img src="https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3892521478,1695688217&fm=26&gp=0.jpg"
+                alt=""></li>
+        <li><img src="https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3252521864,872614242&fm=26&gp=0.jpg"
+                alt=""></li>
+        <li><img src="https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2229864841,4232235061&fm=26&gp=0.jpg"
+                alt=""></li>
+        <li><img src="https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1035415831,1465727770&fm=26&gp=0.jpg"
+                alt=""></li>
+        <li><img src="6" alt=""></li>
+        <li><img src="8" alt=""></li>
+    </ul>
+    <script>
+        const imgObj = document.getElementsByTagName('img');
+
+        for (let i = 0; i < imgObj.length; i++) {
+            imgObj[i].onerror = function (e) {
+                console.log(e.target.src)
+            }
+        }
+
+        /*         performance.getEntries().forEach((item)=>{
+                    console.log(item)
+                }) */
+
+        window.addEventListener('error', function (e) {
+            console.log(e.target.src + '--')
+        }, true)
+
+
+    </script>
+</body>
+
+</html>

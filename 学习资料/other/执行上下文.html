@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      // ECStack 执行环境栈（栈内存）
+      // EC 执行环境（执行上下文）
+      //    VO 变量对象
+      //       AO 活动对象（函数的叫做AO，理解为VO的分支）
+
+      // 第一步：创建全局执行上下文，并将其压入ECStack中
+
+      let a = 12,
+        b = 12;
+      function fun() {
+        // console.log(a,b)// 报错，未声明就使用形成暂时性死区
+        let a = (b = 13);
+        console.log(a, b);
+      }
+      fun();
+      console.log(a, b);
+
+      let aa = {
+        n: 1,
+      };
+      let bb = aa;
+      aa.x = aa = {
+        // 先创建值，再依次指向
+        n: 2,
+      };
+      console.log(aa.x); // undefined
+      console.log(bb); // {n:1,x:{n:2}}
+
+      /*
+         *执行上下文：代码执行的环境
+         *时机：代码正式执行之前会进入到执行环境
+         一个执行期上下文定义了一个函数执行时的环境，函数每次执行时对应的执行上下文都是独一无二的
+         所以多次调用一个函数会导致创建多个执行上下文，当函数执行完毕，它所产生的执行上下文被销毁
+         *工作：
+         * 1.创建变量对象
+         * 2.确定this指向
+         * 3.创建作用域链(作用域的作用是：让不同作用域下的同名变量不冲突)
+         *    父级作用域链+当前的变量对象
+         */
+
+      /*
+         * 三部曲
+         *  语法检查
+         *  预编译（4步）
+         *   1.创建AO对象
+             2.找形参和变量声明，将变量和形参名作为AO属性名，值undefined
+             3.将实参和形参统一
+             4.在函数体里找函数声明，值赋予函数体
+         *  解释执行
+         */
+      if (0) {
+        var n = 10;
+      }
+      console.log(n); // undefined
+
+      // var obj = {
+      //     name:'Yang',
+      //     fn:(function(x){
+      //         return 'x:'+x
+      //     })(obj.name)
+      // }
+    </script>
+  </body>
+</html>

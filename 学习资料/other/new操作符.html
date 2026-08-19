@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+<script>
+    function animal(name, age) {
+        this.name = name;
+        this.age = age;            
+    }
+    //1.创建一个新对象obj
+    //2.obj.__proto__ = Fun.prototype
+    //3.Fun.call(obj)
+    //4.判断Fun的返回值类型：如果是值类型，返回obj。如果是引用类型，就返回这个引用类型的对象
+    function _new(fn, ...arg) {
+        let obj = {
+            __proto__: fn.prototype
+        }
+        let result = fn.call(obj, ...arg); 
+        if (typeof result === 'object' && result !== null) {
+            return result;
+        } else {
+            return obj;
+        }
+    }
+    let cat = _new(animal, 'cat', 12);
+    console.log(cat);
+    
+    var a = ()=>{
+
+    }
+    console.log(animal.prototype)
+    console.log(a.prototype)// 箭头函数没有prototype
+    var obj = {
+        
+    }
+
+    let aaa = {
+        
+    }
+</script>
+</body>
+
+</html>

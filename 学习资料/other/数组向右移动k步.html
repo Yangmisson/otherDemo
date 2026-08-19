@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .transition{
+            width: 100px;
+            height: 100px;
+            background-color: burlywood;
+        }
+    </style>
+</head>
+<body>
+    <div class="transition"></div>
+    <script>
+        let arr = [1,5,2,3,4,8,9];
+        function rotate(k){
+            if(k<=0||k===this.length){
+                return this;
+            }
+            if(k>this.length){
+                k = k%this.length;
+            }
+            if(k>0&&k<this.length){
+                this.unshift(...this.splice(-k))
+            }
+            return this;
+        }
+        Array.prototype.rotate = rotate;
+        arr.rotate(2);
+        console.log(arr)
+    </script>
+</body>
+</html>

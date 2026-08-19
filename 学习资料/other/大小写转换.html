@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+</body>
+<script>
+    /*
+    *正则 var reg = new RegExp('正则表达式','匹配模式')
+    * i-忽略大小写  g-全局匹配  [^ ]-除了
+    * []表示或者的意思
+    *
+    * 
+    * 
+    */
+    var reg = /[A-z]/
+    var str1 = '1a2v3f4s5g6',
+        str2 = '1a2v3f4s5g6',
+        str3 = '1a2v3f4s5g6'
+    console.log(reg.test('a'))
+    console.log('str1', str1.split(/[A-z]/))//[1,2,3,4,5,6]
+    console.log('str2', str2.match(/[A-z]/g))
+    console.log('str3', str3.replace(/[A-z]/g, '-'))
+    console.log('----')
+    console.log(str1, str2, str3)
+
+    var str = 'hello World 你好，世界。HAHA';
+    var newstr = str.replace(/[a-zA-Z]/g, function (context) {
+        return context.toUpperCase() === context ? context.toLowerCase() : context.toUpperCase()
+    })
+    console.log(newstr)
+
+
+    let s = 'react js vue hello world', t = 'hello'
+    String.prototype.myIndexOf = function (t) {
+        return this.search(new RegExp(t))
+    }
+    console.log(s.myIndexOf(t))
+
+</script>
+
+</html>

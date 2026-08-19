@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            width: 150px;
+            height: 150px;
+            margin-top: 10px;
+            background-color: teal;
+
+            /* visibility:visible;
+            transition: visibility 1s; */
+
+
+        }
+        .hidden{
+            /* visibility: hidden;
+            transition: visibility 1s; */
+            opacity: 0;
+
+        }
+        /* 
+            z-index：建立不同的文档流层级
+
+            浮动、定位
+            transform、animation(产生虚拟平面，只引发一次回流，所以css3动画好)
+         */
+    </style>
+</head>
+<body>
+    <div class="box hidden" id="box"></div>
+    <div class="box" ></div>
+    <!-- 
+        1.display:none 脱离文档流
+        2.visibility:hidden 不脱离文档流,但是无法响应事件。visilibity可应用transition
+        3.opacity:0 不脱离文档流,仍然可以接受javascript事件
+        4.HTML有个hidden全局属性，专门用于显示隐藏元素，与display:none的作用类似，
+        元素隐藏时脱离文档流，无法接受javascript事件
+        5.overflow:hidden配合父级的height:0或width:0来实现元素的显隐
+        6.transform:scale(0)时，元素被隐藏
+          transform:rotateX(90deg)时，元素被隐藏
+          transform:skew(90deg)时，元素被隐藏
+        7.偏移 margin-top translate left
+     -->
+     <script>
+         box.onclick = function(){
+             console.log(this.className)
+             if(this.className.indexOf('hidden')>-1){
+                this.className = 'box';
+             }else{
+                this.className = 'box hidden';
+             }
+         }
+     </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .progress-container {
+            width: 300px;
+            margin: 60px auto;
+        }
+
+        #progress {
+            height: 20px;
+            background-color: chocolate;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="progress-container">
+        <div id="progress"></div>
+    </div>
+    <script>
+        /* 
+        JavaScript可分为同步任务及异步任务；而JS又把异步任务做了进一步的划分，分为宏任务与微任务。
+
+        宏任务
+            定时器回调函数
+            ajax请求回调函数
+            事件回调函数
+            分类：setTimeout、setInterval、requestAnimationFrame、ajax
+            1.宏任务所处的队列就是宏任务队列
+            2.第一个宏任务队列中只有一个任务，执行主线程的js代码
+            3.宏任务队列可以有多个
+        微任务
+            分类：new Promise().then(回调)  .nextTick(node)
+            1.微任务所处的队列就是微任务队列
+            2.只有一个微任务队列()  --- 待商榷
+            3.在上一个宏任务队列执行完毕后如果有微任务队列，就会执行微任务队列中的所有任务
+        */
+        console.log('start')
+        setTimeout(() => {
+            console.log('setTimeout')
+
+            new Promise((resolve, reject) => { // promise里面是同步代码
+                for (var i = 0; i < 5; i++) {
+                    console.log(i)
+                }
+                resolve()
+            }).then(() => {
+                console.log('promise3')
+            })
+
+        }, 2000);
+
+        new Promise((resolve, reject) => {
+            for (var i = 0; i < 5; i++) {
+                console.log('Promise', i)
+            }
+            resolve()
+        }).then(() => {
+            console.log('promise1')
+        })
+
+        setInterval(() => {
+            console.log('setInterval')
+        }, 1000);
+
+        new Promise((resolve, reject) => {
+            for (var i = 0; i < 5; i++) {
+                console.log(i + '-----')
+            }
+            resolve()
+        }).then(() => {
+            console.log('promise2')
+        })
+        console.log('end')
+
+        /* 
+        start
+        Promise 0
+        ...
+        Promise 4
+        0-----
+        ...
+        4-----
+        end
+        promise1
+        promise2
+        setInterval
+        setTimeout
+        0
+        ...
+        4
+        promise3
+
+        setInterval...
+         */
+
+        const progress = document.getElementById('progress');
+
+        function hand() {
+            let num = 0;
+            return (function run() {
+                setTimeout(_ => {
+                    if (num <= 100) {
+                        progress.style.width = ++num + '%'
+                        run();
+                    }
+                }, 20)
+            })()
+        }
+        hand()
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        // 实现(5).add(3).minus(2)=6
+        // 例如：arr是Array的实例，可以调用Array.prototype上的方法，push就是其中一个
+
+        function check(n) {
+            n = Number(n);
+            return isNaN(n) ? 0 : n
+        }
+
+        Number.prototype.add = function (n) {
+            n = check(n)
+            return this + n
+        }
+
+        Number.prototype.minus = function (n) {
+            n = check(n)
+            return this - n
+        }
+
+        console.log((5).add(3).minus(2))
+    </script>
+
+</body>
+
+</html>

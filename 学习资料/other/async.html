@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+    <script>
+        function awaitFn() {
+            return new Promise((resolve) => {
+                resolve(123)
+            })
+        }
+        async function show() {
+            let num = await 2
+            console.log('num',num)
+            let a = await awaitFn().then((data) => {
+                console.log('thendata', data)
+                return data + 1
+            });
+            console.log(a)
+            return a
+        }
+
+        let mm = show().then((data) => {
+            console.log('data', data)
+        })
+        console.log('mm',mm)
+
+    </script>
+</body>
+
+</html>

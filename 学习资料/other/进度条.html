@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        padding: 20px;
+      }
+      #progress1,
+      #progress2 {
+        background-color: chartreuse;
+        height: 30px;
+        width: 0;
+        margin: 10px 0;
+      }
+      .btn {
+        display: inline-block;
+        background-color: #38f;
+        color: #fff;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <img src="../images/1.png" alt="">
+    <div class="btn" id="btn1">开始</div>
+    <div class="btn" id="btn2">复位</div>
+    <div id="progress1"></div>
+    <div id="progress2"></div>
+    <script>
+      let i = 0,
+        j = 0;
+      const progress1 = document.getElementById("progress1");
+      const progress2 = document.getElementById("progress2");
+      const btn1 = document.getElementById("btn1");
+      const btn2 = document.getElementById("btn2");
+      function progressFun1(type) {
+        if (type == 1) {
+          i++;
+        } else {
+          i--;
+        }
+        if (i < 100 && i > 0) {
+          progressFun1(type);
+        }
+        progress1.style.width = `${i}%`;
+        progress1.style.transition = `width 2s`;
+      }
+
+      function progressFun2(type) {
+        requestAnimationFrame(function () {
+          if (type == 1) {
+            j++;
+          } else {
+            j--;
+          }
+          console.log(j);
+          if (j < 100 && j > 0) {
+            progressFun2(type);
+          }
+          progress2.style.width = `${j}%`;
+          progress2.style.transition = `width 2s`;
+        });
+      }
+
+      btn1.addEventListener("click", function () {
+        progressFun1(1);
+        progressFun2(1);
+      });
+      btn2.addEventListener("click", function () {
+        progressFun1(0);
+        progressFun2(0);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function Parent(type){
+            this.type = type;
+            this.arr = [1,2,3,4];
+        }
+        Parent.prototype.say = function(){
+            console.log(this.type);
+        }
+        function Children(type,any){
+            Parent.call(this,type);//这种方法原型对象上的属性没法继承
+            this.any = any;
+        }
+        Children.prototype = new Parent();//这种方法改变实例的引用类型的值，实际是改变parent里的值
+        // Children.prototype = Object.create(Parent.prototype);
+        // Children.prototype.constructor = Children;
+        let c1 = new Children('parent1','any1')
+        let c2 = new Children('parent2','any2')
+        c1.arr.unshift(55);
+        console.log(c1,c2)
+        // console.log(c1 instanceof Children,c1 instanceof Parent)
+        // console.log(c1.constructor)
+        // console.log(c2.constructor)
+
+        console.log(new Parent(1))
+
+
+
+        // 函数的显式原型指向Object的实例对象（Object例外）
+        // 所有函数都是Function的实例对象，包括Function自己
+        // Object的原型对象是原型链尽头  Object.prototype.__proto__ == null
+
+        function F(){}
+        Object.prototype.a = function(){
+            console.log('a')
+        }
+        Function.prototype.b = function(){
+            console.log('b')
+        }
+        var f = new F()
+        f.a()// a
+        // f.b()// f.b is not a function
+        F.a()// a
+        F.b()// b
+
+        function A(){}
+        A.prototype.n = 1
+        var b = new A()
+        A.prototype = {
+            n:2,
+            m:3
+        }
+        var c = new A()
+        console.log(b.n,b.m,c.n,c.m)// 1 undefined 2 3
+
+        
+    </script>
+</body>
+</html>

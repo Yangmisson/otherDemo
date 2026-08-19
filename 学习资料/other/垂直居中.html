@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            border: 1px solid red;
+            height: 200px;
+            position: relative;
+        }
+
+        /* 第一种 */
+        /* .vertical{
+            display: flex;
+            align-items: center;
+        } */
+        /* 第二种 */
+        /*.vertical{
+            display: flex;
+        } 
+        .vertical span{
+            margin: auto;
+        } */
+        /* 第三种 */
+        .container2 {
+            border: 1px solid red;
+            padding: 20px 0;
+        }
+
+        /* 第四种 */
+        /* .vertical span{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        } */
+        /* 第四种 */
+        .vertical {
+            display: flex;
+        }
+
+        .vertical span {
+            align-self: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container vertical">
+        <span class="span1">发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉</span>
+    </div>
+
+    <div class="container2">
+        <span>发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉发动机和感觉</span>
+    </div>
+</body>
+
+</html>

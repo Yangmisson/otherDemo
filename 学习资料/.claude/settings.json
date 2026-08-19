@@ -1,0 +1,8 @@
+{
+  "apiKeyHelper": "echo 'sk-YQAStN9wfrKsJpp1BEHj13e0AQb5IB43IIRd5jnWoC9loJHO'",
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://api.ccodezh.com",
+    "ANTHROPIC_AUTH_TOKEN": "sk-YQAStN9wfrKsJpp1BEHj13e0AQb5IB43IIRd5jnWoC9loJHO",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+  }
+}
