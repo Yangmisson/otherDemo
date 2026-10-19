@@ -1,0 +1,5 @@
+### 获取用户信息
+GET https://uatminivisit.hkbf.com.cn/api/yAgencyMiniProgram/viewUserInfo/v1/getUserByUserCode?userCode=BF1030497
+Authorization: Basic YnBtYWRtaW46YnBtQWRtaW5AMjAxOQ==
+
+###
